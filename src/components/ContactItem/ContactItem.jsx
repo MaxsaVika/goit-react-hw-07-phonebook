@@ -1,6 +1,10 @@
 import React from 'react';
+import { useDispatch } from 'react-redux';
+import { removeContact } from 'redux/contactsSlice';
 
-export default function ContactItem({ id, name, number, removeContact }) {
+export default function ContactItem({ id, name, number }) {
+  const dispatch = useDispatch();
+
   return (
     <li>
       <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
@@ -8,7 +12,7 @@ export default function ContactItem({ id, name, number, removeContact }) {
         <p>{number}</p>
         <span
           style={{ color: 'red', cursor: 'pointer' }}
-          onClick={() => removeContact(id)}
+          onClick={() => dispatch(removeContact({ id }))}
         >
           &times;
         </span>

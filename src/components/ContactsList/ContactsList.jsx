@@ -3,7 +3,7 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 
 export default function ContactsList({ removeContact }) {
-  const contacts = useSelector();
+  const contacts = useSelector(state => state.contacts.contacts);
   return (
     <ol>
       {contacts.map(contact => (

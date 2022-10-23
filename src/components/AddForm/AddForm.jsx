@@ -1,6 +1,11 @@
 import React from 'react';
 
-export default function AddForm({ name, number, handleInput, addContact }) {
+export default function AddForm({
+  name,
+  number,
+  handleInput,
+  handleAddContact,
+}) {
   return (
     <form style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
       <label>
@@ -16,7 +21,11 @@ export default function AddForm({ name, number, handleInput, addContact }) {
         />
         Number
       </label>
-      <button type="button" onClick={addContact} style={{ width: '200px' }}>
+      <button
+        type="button"
+        onClick={handleAddContact}
+        style={{ width: '200px' }}
+      >
         Add contact
       </button>
     </form>
