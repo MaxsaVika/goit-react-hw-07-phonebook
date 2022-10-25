@@ -6,7 +6,7 @@ export default function ContactItem({ id, name, number }) {
   const dispatch = useDispatch();
 
   return (
-    <li>
+    <li style={{ paddingBottom: '5px' }}>
       <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
         <p>{name}</p>
         <p>{number}</p>

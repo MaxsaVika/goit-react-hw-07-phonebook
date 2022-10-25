@@ -1,17 +1,11 @@
 import ContactItem from 'components/ContactItem/ContactItem';
 import React from 'react';
-import { useSelector } from 'react-redux';
 
-export default function ContactsList({ removeContact }) {
-  const contacts = useSelector(state => state.contacts.contacts);
+export default function ContactsList({ contacts }) {
   return (
-    <ol>
+    <ol style={{ paddingLeft: '20px', margin: '0' }}>
       {contacts.map(contact => (
-        <ContactItem
-          key={contact.id}
-          {...contact}
-          removeContact={removeContact}
-        />
+        <ContactItem key={contact.id} {...contact} />
       ))}
     </ol>
   );
