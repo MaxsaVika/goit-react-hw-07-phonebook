@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
 import { removeContact } from 'redux/contactsSlice';
 
@@ -20,3 +21,9 @@ export default function ContactItem({ id, name, number }) {
     </li>
   );
 }
+
+ContactItem.propTypes = {
+  id: PropTypes.string,
+  name: PropTypes.string,
+  number: PropTypes.string,
+};

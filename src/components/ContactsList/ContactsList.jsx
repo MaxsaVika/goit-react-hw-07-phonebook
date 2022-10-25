@@ -1,4 +1,5 @@
 import ContactItem from 'components/ContactItem/ContactItem';
+import PropTypes from 'prop-types';
 import React from 'react';
 
 export default function ContactsList({ contacts }) {
@@ -10,3 +11,11 @@ export default function ContactsList({ contacts }) {
     </ol>
   );
 }
+
+ContactsList.propTypes = {
+  contacts: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.string,
+    })
+  ),
+};
