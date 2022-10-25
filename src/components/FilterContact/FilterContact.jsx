@@ -16,7 +16,7 @@ export const FilterContact = () => {
     <div className={css.find_wrapper}>
       <label className={css.find_label} htmlFor="filter">
         {' '}
-        Find contacts by name
+        Find contacts
       </label>
       <input
         id="filter"

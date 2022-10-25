@@ -13,7 +13,7 @@ export default function ContactItem({ id, name, number }) {
         <p>{number}</p>
         <span
           style={{ color: 'red', cursor: 'pointer' }}
-          onClick={() => dispatch(removeContact({ id }))}
+          onClick={() => dispatch(removeContact(id))}
         >
           &times;
         </span>
