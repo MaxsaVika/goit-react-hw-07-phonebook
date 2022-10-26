@@ -1,0 +1,20 @@
+.listItem:not(:last-child){
+    margin-bottom: 10px;
+}
+
+.listItemWrapper{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.listItemDelBtn{
+    color: rgb(243, 25, 25);
+    cursor: pointer;
+    transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.listItemDelBtn:hover{
+    transform: scale(1.3);
+    font-weight: 700;
+}

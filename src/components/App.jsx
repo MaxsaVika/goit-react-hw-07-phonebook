@@ -3,6 +3,7 @@ import AddForm from './AddForm/AddForm';
 import { useSelector } from 'react-redux';
 import { FilterContact } from './FilterContact/FilterContact';
 import { getContacts, getFilter } from 'redux/selectors';
+import css from 'components/styles.module.css';
 
 export const App = () => {
   const contacts = useSelector(getContacts);
@@ -14,16 +15,21 @@ export const App = () => {
       number.includes(filter)
   );
 
+  const sortContactsByName = () =>
+    filteredContacts.sort((firstContact, secondContact) =>
+      firstContact.name.localeCompare(secondContact.name)
+    );
+
   return (
-    <div style={{ padding: '20px' }}>
-      <h1 style={{ marginBottom: '20px' }}>MY PHONEBOOK</h1>
+    <section className={css.section}>
+      <h1 className={css.sectionTitle}>MY PHONEBOOK</h1>
       <AddForm />
       <FilterContact />
       {contacts.length > 0 ? (
-        <ContactsList contacts={filteredContacts} />
+        <ContactsList contacts={sortContactsByName()} />
       ) : (
         <p>No Contact at List</p>
       )}
-    </div>
+    </section>
   );
 };

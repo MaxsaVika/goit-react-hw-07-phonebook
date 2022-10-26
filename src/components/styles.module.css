@@ -1,0 +1,9 @@
+.section{
+    padding: 20px;
+}
+
+.sectionTitle{
+    margin-bottom: 20px;
+    color: rgb(126, 149, 23);
+    font-weight: 700;
+}

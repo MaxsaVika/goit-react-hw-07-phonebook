@@ -22,7 +22,7 @@ export const FilterContact = () => {
         id="filter"
         className={css.find_input}
         type="text"
-        placeholder="Name // number"
+        placeholder="Name // tel"
         value={filter}
         name="filter"
         onChange={onHandleChange}
