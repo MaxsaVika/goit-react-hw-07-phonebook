@@ -1,48 +1,38 @@
-import { createSlice } from '@reduxjs/toolkit';
-import { persistReducer } from 'redux-persist';
-import storage from 'redux-persist/lib/storage';
-import { nanoid } from 'nanoid';
+import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
-const contactsSlice = createSlice({
-  name: 'contacts',
-  initialState: {
-    contacts: [],
-    filter: '',
-  },
-  reducers: {
-    addContact: {
-      reducer(state, action) {
-        state.contacts.push(action.payload);
-      },
-      prepare(data) {
-        return {
-          payload: {
-            ...data,
-            id: nanoid(),
-          },
-        };
-      },
-    },
+export const contactsApi = createApi({
+  reducerPath: 'contacts',
+  baseQuery: fetchBaseQuery({
+    baseUrl: 'https://635ba9628aa87edd914dd6b6.mockapi.io/api/v1',
+  }),
+  tagTypes: ['Contact'],
+  endpoints: builder => ({
+    getContacts: builder.query({
+      query: () => '/contacts',
+      providesTags: ['Contact'],
+    }),
 
-    removeContact: (state, { payload }) => {
-      state.contacts = state.contacts.filter(({ id }) => id !== payload);
-    },
+    addContact: builder.mutation({
+      query: newContact => ({
+        url: '/contacts',
+        method: 'POST',
+        body: newContact,
+      }),
+      invalidatesTags: ['Contact'],
+    }),
 
-    setFilter: (state, { payload }) => {
-      state.filter = payload;
-    },
-  },
+    removeContact: builder.mutation({
+      query: id => ({
+        url: `/contacts/${id}`,
+        method: 'DELETE',
+      }),
+      invalidatesTags: ['Contact'],
+    }),
+  }),
 });
 
-const persistConfig = {
-  key: 'contacts',
-  storage,
-  whitelist: ['contacts'],
-};
-
-export const persistedContactsReducer = persistReducer(
-  persistConfig,
-  contactsSlice.reducer
-);
-
-export const { addContact, removeContact, setFilter } = contactsSlice.actions;
+export const {
+  useGetContactsQuery,
+  useAddContactMutation,
+  useRemoveContactMutation,
+} = contactsApi;

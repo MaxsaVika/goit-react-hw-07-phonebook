@@ -1,16 +1,17 @@
+import { Loader } from 'components/Loader/Loader';
 import React, { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { addContact } from 'redux/contactsSlice';
-import { getContacts } from 'redux/selectors';
+import { useGetContactsQuery } from 'redux/contactsSlice';
+import { useAddContactMutation } from 'redux/contactsSlice';
 import css from './AddForm.module.css';
 
 export default function AddForm() {
   const [name, setName] = useState('');
-  const [number, setNumber] = useState('');
-  const options = { name: setName, number: setNumber };
+  const [phone, setPhone] = useState('');
+  const options = { name: setName, phone: setPhone };
 
-  const dispatch = useDispatch();
-  const contacts = useSelector(getContacts);
+  const { data } = useGetContactsQuery();
+
+  const [addContact, { isLoading }] = useAddContactMutation();
 
   const onAddContact = e => {
     e.preventDefault();
@@ -18,16 +19,15 @@ export default function AddForm() {
     if (onCheckupContact(name)) {
       return alert(`${name} is already in contacts `);
     }
-    if (onCheckupContact(number)) {
-      return alert(`Tel.number ${number} is already in contacts `);
+    if (onCheckupContact(phone)) {
+      return alert(`Tel.number ${phone} is already in contacts `);
     }
-
-    if (name.trim().length & number.trim().length) {
-      dispatch(addContact({ name, number }));
+    if (name.trim().length & phone.trim().length) {
+      addContact({ name, phone });
     }
 
     setName('');
-    setNumber('');
+    setPhone('');
   };
 
   const onChange = ({ target: { name, value } }) => {
@@ -35,8 +35,8 @@ export default function AddForm() {
   };
 
   const onCheckupContact = value => {
-    const res = contacts.find(
-      contact => contact.name === value || contact.number === value
+    const res = data.find(
+      contact => contact.name === value || contact.phone === value
     );
     return res;
   };
@@ -58,17 +58,17 @@ export default function AddForm() {
       <input
         className={css.formInput}
         type="tel"
-        name="number"
+        name="phone"
         pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
         title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
         required
-        placeholder="Tel"
-        value={number}
+        placeholder="Phone"
+        value={phone}
         onChange={onChange}
       />
 
-      <button className={css.formBtn} type="submit">
-        Add contact
+      <button className={css.formBtn} type="submit" disabled={isLoading}>
+        {isLoading ? <Loader /> : 'Add contact'}
       </button>
     </form>
   );

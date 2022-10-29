@@ -5,14 +5,21 @@ import css from './ContactsList.module.css';
 
 export default function ContactsList({ contacts }) {
   return (
-    <>
-      <h2 className={css.listTitle}>Contacts List</h2>
-      <ol className={css.list}>
+    <table className={css.tablWrapper}>
+      <thead className={css.tablHeader}>
+        <tr>
+          <th className={css.tablSubTitle}>Name</th>
+          <th className={css.tablSubTitle}>Phone</th>
+          <th className={css.tablSubTitle}>Delete</th>
+        </tr>
+      </thead>
+
+      <tbody>
         {contacts.map(contact => (
           <ContactItem key={contact.id} {...contact} />
         ))}
-      </ol>
-    </>
+      </tbody>
+    </table>
   );
 }
 

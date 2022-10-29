@@ -1,9 +1,21 @@
-.list{
-    padding-left: 20px;
-    padding-top: 10px;
-    margin: 0;
+.tablWrapper {
+    width: 500px;
+    margin-left: 30px;
+    border-collapse: collapse;
+    border-radius: 6px;
+    box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.12), 0px 4px 4px rgba(0, 0, 0, 0.06), 1px 4px 6px rgba(0, 0, 0, 0.16);
+    overflow: hidden; 
 }
 
-.listTitle{
-    padding-top: 20px;
+.tablHeader {
+    background-color: rgb(126, 149, 23);
+}
+
+.tablSubTitle {
+    padding: 5px;
+    font-size: 14px;
+    font-weight: 600;
+    text-transform: uppercase;
+    color: #212121;
+    border: 1px solid #ccc;
 }

@@ -1,25 +1,21 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { useDispatch } from 'react-redux';
-import { removeContact } from 'redux/contactsSlice';
+import { useRemoveContactMutation } from 'redux/contactsSlice';
 import css from './ContactItem.module.css';
 
-export default function ContactItem({ id, name, number }) {
-  const dispatch = useDispatch();
+export default function ContactItem({ id, name, phone }) {
+  const [removeContact] = useRemoveContactMutation();
 
   return (
-    <li className={css.listItem}>
-      <div className={css.listItemWrapper}>
-        <p>{name}</p>
-        <p>{number}</p>
-        <span
-          className={css.listItemDelBtn}
-          onClick={() => dispatch(removeContact(id))}
-        >
+    <tr key={id} className={css.contact_item}>
+      <td>{name}</td>
+      <td>{phone}</td>
+      <td>
+        <span className={css.listItemDelBtn} onClick={() => removeContact(id)}>
           &times;
         </span>
-      </div>
-    </li>
+      </td>
+    </tr>
   );
 }
 

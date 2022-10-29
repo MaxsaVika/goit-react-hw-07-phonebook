@@ -2,34 +2,43 @@ import ContactsList from './ContactsList/ContactsList';
 import AddForm from './AddForm/AddForm';
 import { useSelector } from 'react-redux';
 import { FilterContact } from './FilterContact/FilterContact';
-import { getContacts, getFilter } from 'redux/selectors';
+import { getFilter } from 'redux/selectors';
+import { useGetContactsQuery } from 'redux/contactsSlice';
 import css from 'components/styles.module.css';
+import { Loader } from './Loader/Loader';
 
 export const App = () => {
-  const contacts = useSelector(getContacts);
+  const { data, error, isLoading } = useGetContactsQuery();
+
   const filter = useSelector(getFilter);
 
-  const filteredContacts = contacts.filter(
-    ({ name, number }) =>
-      name.toLocaleLowerCase().includes(filter.toLocaleLowerCase()) ||
-      number.includes(filter)
-  );
-
-  const sortContactsByName = () =>
-    filteredContacts.sort((firstContact, secondContact) =>
-      firstContact.name.localeCompare(secondContact.name)
-    );
+  const filteredContacts = () =>
+    data
+      .filter(
+        ({ name, phone }) =>
+          name.toLocaleLowerCase().includes(filter.toLocaleLowerCase()) ||
+          phone.includes(filter)
+      )
+      .sort((firstContact, secondContact) =>
+        firstContact.name.localeCompare(secondContact.name)
+      );
 
   return (
     <section className={css.section}>
-      <h1 className={css.sectionTitle}>MY PHONEBOOK</h1>
-      <AddForm />
-      <FilterContact />
-      {contacts.length > 0 ? (
-        <ContactsList contacts={sortContactsByName()} />
+      <div>
+        <h1 className={css.sectionTitle}>MY PHONEBOOK</h1>
+        <AddForm />
+        <FilterContact />
+      </div>
+
+      {data ? (
+        <ContactsList contacts={filteredContacts()} />
       ) : (
         <p>No Contact at List</p>
       )}
+
+      {isLoading && <Loader />}
+      {error && <p>...ERROR</p>}
     </section>
   );
 };

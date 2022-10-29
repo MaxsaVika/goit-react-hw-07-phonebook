@@ -1,11 +1,20 @@
-.listItem:not(:last-child){
-    margin-bottom: 10px;
+td {
+    padding: 5px;
+    font-size: 14px;
+    text-align: center;
+    text-transform: capitalize;
+    color: #6e6e6e;
+    border: 1px solid #ccc;
+    cursor: pointer;
 }
 
-.listItemWrapper{
-    display: flex;
-    align-items: center;
-    gap: 10px;
+tr {
+    transition: background-color 250ms ease-out 0s;
+}
+
+.contact_item:hover {
+    background-color: rgb(218, 218, 218);
+    transform: scale(1.02);
 }
 
 .listItemDelBtn{
